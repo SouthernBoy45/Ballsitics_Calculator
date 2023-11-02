@@ -13,5 +13,7 @@ namespace FullStackAuth_WebAPI.Models
         public string UserId { get; set; }
         [ForeignKey ("ShotData")]
         public string ShotDataId { get; set; }
+        public User User { get; set; }
+        public ShotData ShotData { get; set; }
     }
 }
