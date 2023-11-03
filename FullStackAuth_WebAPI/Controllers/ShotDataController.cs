@@ -1,7 +1,9 @@
-﻿using FullStackAuth_WebAPI.Data;
+﻿using Azure.Identity;
+using FullStackAuth_WebAPI.Data;
 using FullStackAuth_WebAPI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,11 +22,13 @@ namespace FullStackAuth_WebAPI.Controllers
         }
 
         // GET: api/<ShotDataController>
-        [HttpGet]
-        public IActionResult GetShotData()
+        [HttpGet ("myShots"), Authorize]
+        public IActionResult GetUserShotData()
         {
             try
             {
+                string userId = User.FindFirstValue("id");
+
                 var shotData = _context.ShotDatas.Select(s => new ShotData
                 {
                     Id = s.Id,
@@ -50,11 +54,34 @@ namespace FullStackAuth_WebAPI.Controllers
         }
 
         // POST api/<ShotDataController>
-        //[HttpPost, Authorize]
-        //public IActionResult Post([FromBody] ShotData data)
-        //{
+        [HttpPost, Authorize]
+        public IActionResult Post([FromBody] ShotData data)
+        {
+            try
+            {
+                string userId = User.FindFirstValue("id");
 
-        //}
+                if (string.IsNullOrEmpty(userId))
+                {
+                    return Unauthorized();
+                }
+
+                data.UserId = userId;
+               
+                _context.ShotDatas.Add(data);
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                _context.SaveChanges();
+                return StatusCode(201, data);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
         // PUT api/<ShotDataController>/5
         [HttpPut("{id}")]
