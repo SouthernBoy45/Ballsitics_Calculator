@@ -7,12 +7,10 @@ namespace FullStackAuth_WebAPI.Models
     {
         [Key]
         public int Id { get; set; }
-        public int Caliber { get; set; }
+        public string Name { get; set; }
         public int ScopeHeight { get; set; }
         [ForeignKey ("User")]
         public string UserId { get; set; }
-        [ForeignKey ("ShotData")]
-        public string ShotDataId { get; set; }
         public User User { get; set; }
         public ShotData ShotData { get; set; }
     }
