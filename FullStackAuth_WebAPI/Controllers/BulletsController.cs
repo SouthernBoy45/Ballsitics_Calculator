@@ -24,6 +24,7 @@ namespace FullStackAuth_WebAPI.Controllers
                 var bullets = _context.Bullets.Select(b => new Bullet
                 {
                     Id = b.Id,
+                    Name = b.Name,
                     MuzzleVelocity = b.MuzzleVelocity,
                     Caliber = b.Caliber,
                     Weight = b.Weight
@@ -47,8 +48,23 @@ namespace FullStackAuth_WebAPI.Controllers
 
         // POST api/<RiflesController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] Bullet data)
         {
+            try
+            {
+                _context.Bullets.Add(data);
+
+                    if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                _context.SaveChanges();
+                return StatusCode(201, data);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         // PUT api/<RiflesController>/5
