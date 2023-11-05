@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 
 namespace FullStackAuth_WebAPI
@@ -31,7 +32,7 @@ namespace FullStackAuth_WebAPI
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
+            var env = builder.Environment; // Define env variable
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -40,7 +41,12 @@ namespace FullStackAuth_WebAPI
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-            
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "Images")),
+                RequestPath = "/Images"
+            });
 
             app.UseHttpsRedirection();
             app.UseCors("CorsPolicy");

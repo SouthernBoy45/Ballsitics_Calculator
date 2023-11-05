@@ -10,6 +10,7 @@ namespace FullStackAuth_WebAPI.Data
         public DbSet<Rifle> Rifles { get; set; }
         public DbSet<ShotData> ShotDatas { get; set; }
         public DbSet<Bullet> Bullets { get; set; }
+        public DbSet<Image> Image { get; set; }
 
         public ApplicationDbContext(DbContextOptions options)
     : base(options)
