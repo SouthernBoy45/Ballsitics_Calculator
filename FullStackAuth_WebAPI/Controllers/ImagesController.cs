@@ -2,6 +2,7 @@
 using FullStackAuth_WebAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 
 namespace FullStackAuth_WebAPI.Controllers
@@ -49,7 +50,7 @@ namespace FullStackAuth_WebAPI.Controllers
 
         // This method saves an image file to the Images folder and returns the name of the image.
         [NonAction]
-        public async Task<string> SaveImage(IFormFile imageFile)
+        public async Task <String> SaveImage(IFormFile imageFile)
         {
             // Create a new image name by taking the first 10 characters of the original file name (without the extension),
             // replacing spaces with dashes, and appending a timestamp. Then append the original extension to this name.
