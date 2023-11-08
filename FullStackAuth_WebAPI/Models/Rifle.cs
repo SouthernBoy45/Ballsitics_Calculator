@@ -9,6 +9,7 @@ namespace FullStackAuth_WebAPI.Models
         public string Id { get; set; }
         public string Name { get; set; }
         public int ScopeHeight { get; set; }
+        public double ZeroRange { get; set; }
         [ForeignKey ("User")]
         public string UserId { get; set; }
         public User User { get; set; }

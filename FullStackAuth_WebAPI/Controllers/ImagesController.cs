@@ -4,6 +4,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Linq;
+using System.IO;
+using Microsoft.Extensions.Hosting;
+using System;
+using Microsoft.AspNetCore.Hosting;
 
 namespace FullStackAuth_WebAPI.Controllers
 {
@@ -28,6 +36,7 @@ namespace FullStackAuth_WebAPI.Controllers
             return await _context.Image.Select(x => new Image()
             {
                 Id = x.Id,
+                ShotDataId = x.ShotDataId,
                 Title = x.Title,
                 Description = x.Description,
                 ImageSrc = String.Format("{0}://{1}{2}/Images/{3}", Request.Scheme, Request.Host, Request.PathBase, x.Title)

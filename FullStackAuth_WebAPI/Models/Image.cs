@@ -9,6 +9,8 @@ namespace FullStackAuth_WebAPI.Models
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        [ForeignKey ("ShotData")]
+        public string ShotDataId { get; set; }
         [NotMapped]
         public IFormFile ImageFile { get; set; }
         [NotMapped]

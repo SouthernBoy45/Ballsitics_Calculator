@@ -1,6 +1,7 @@
 ﻿using Azure.Identity;
 using FullStackAuth_WebAPI.Data;
 using FullStackAuth_WebAPI.Models;
+using Humanizer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -33,9 +34,13 @@ namespace FullStackAuth_WebAPI.Controllers
                 {
                     Id = s.Id,
                     TargetRange = s.TargetRange,
-                    Rifle = new Rifle
+                    ShootingCondition = s.ShootingCondition,
+                    Note = s.Note,
+                    Bullet = new Bullet
                     {
-                        Name = s.Rifle.Name
+                        Name = s.Bullet.Name,
+                        MuzzleVelocity = s.Bullet.MuzzleVelocity,
+                        Weight = s.Bullet.Weight
                     }
                 }).ToList();
                 return StatusCode(200, shotData);
