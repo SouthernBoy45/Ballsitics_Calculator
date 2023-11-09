@@ -51,7 +51,7 @@ namespace FullStackAuth_WebAPI.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("ShotData")
+                    b.Property<string>("ShotDataId")
                         .HasColumnType("varchar(255)");
 
                     b.Property<string>("Title")
@@ -59,7 +59,7 @@ namespace FullStackAuth_WebAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ShotData");
+                    b.HasIndex("ShotDataId");
 
                     b.ToTable("Image");
                 });
@@ -99,7 +99,7 @@ namespace FullStackAuth_WebAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("varchar(255)");
 
-                    b.Property<string>("Bullet")
+                    b.Property<string>("BulletId")
                         .HasColumnType("varchar(255)");
 
                     b.Property<string>("Note")
@@ -116,7 +116,7 @@ namespace FullStackAuth_WebAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Bullet");
+                    b.HasIndex("BulletId");
 
                     b.HasIndex("UserId");
 
@@ -221,13 +221,13 @@ namespace FullStackAuth_WebAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "aa3e7343-d6f7-4e99-8d5e-87b5d29718b0",
+                            Id = "744f7189-d685-4a6c-9067-6b9a3972643c",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "734ffb57-f03b-4b7c-9c3c-66722cb69d3f",
+                            Id = "b108bbae-7f56-47f9-aeb1-738704308202",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -337,11 +337,11 @@ namespace FullStackAuth_WebAPI.Migrations
 
             modelBuilder.Entity("FullStackAuth_WebAPI.Models.Image", b =>
                 {
-                    b.HasOne("FullStackAuth_WebAPI.Models.ShotData", "ShotDataId")
+                    b.HasOne("FullStackAuth_WebAPI.Models.ShotData", "ShotData")
                         .WithMany()
-                        .HasForeignKey("ShotData");
+                        .HasForeignKey("ShotDataId");
 
-                    b.Navigation("ShotDataId");
+                    b.Navigation("ShotData");
                 });
 
             modelBuilder.Entity("FullStackAuth_WebAPI.Models.Rifle", b =>
@@ -361,15 +361,15 @@ namespace FullStackAuth_WebAPI.Migrations
 
             modelBuilder.Entity("FullStackAuth_WebAPI.Models.ShotData", b =>
                 {
-                    b.HasOne("FullStackAuth_WebAPI.Models.Bullet", "BulletName")
+                    b.HasOne("FullStackAuth_WebAPI.Models.Bullet", "Bullet")
                         .WithMany()
-                        .HasForeignKey("Bullet");
+                        .HasForeignKey("BulletId");
 
                     b.HasOne("FullStackAuth_WebAPI.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
 
-                    b.Navigation("BulletName");
+                    b.Navigation("Bullet");
 
                     b.Navigation("User");
                 });

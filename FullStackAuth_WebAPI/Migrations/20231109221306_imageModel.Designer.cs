@@ -11,42 +11,119 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FullStackAuth_WebAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230621211652_init")]
-    partial class init
+    [Migration("20231109221306_imageModel")]
+    partial class imageModel
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.7")
+                .HasAnnotation("ProductVersion", "7.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("FullStackAuth_WebAPI.Models.Car", b =>
+            modelBuilder.Entity("FullStackAuth_WebAPI.Models.Bullet", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<double>("Caliber")
+                        .HasColumnType("double");
+
+                    b.Property<double>("MuzzleVelocity")
+                        .HasColumnType("double");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.Property<double>("Weight")
+                        .HasColumnType("double");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Bullets");
+                });
+
+            modelBuilder.Entity("FullStackAuth_WebAPI.Models.Image", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Make")
-                        .IsRequired()
+                    b.Property<string>("Description")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Model")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("OwnerId")
+                    b.Property<string>("ShotDataId")
                         .HasColumnType("varchar(255)");
 
-                    b.Property<int>("Year")
-                        .HasColumnType("int");
+                    b.Property<string>("Title")
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OwnerId");
+                    b.HasIndex("ShotDataId");
 
-                    b.ToTable("Cars");
+                    b.ToTable("Image");
+                });
+
+            modelBuilder.Entity("FullStackAuth_WebAPI.Models.Rifle", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("ScopeHeight")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ShotDataId")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<double>("ZeroRange")
+                        .HasColumnType("double");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ShotDataId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Rifles");
+                });
+
+            modelBuilder.Entity("FullStackAuth_WebAPI.Models.ShotData", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("BulletId")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ShootingCondition")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("TargetRange")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BulletId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ShotDatas");
                 });
 
             modelBuilder.Entity("FullStackAuth_WebAPI.Models.User", b =>
@@ -147,13 +224,13 @@ namespace FullStackAuth_WebAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "59de2413-2986-49fa-a7ea-d2ee9bae8830",
+                            Id = "744f7189-d685-4a6c-9067-6b9a3972643c",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "02826bcd-2b15-4c0a-8d85-281ade12b9b9",
+                            Id = "b108bbae-7f56-47f9-aeb1-738704308202",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -261,13 +338,43 @@ namespace FullStackAuth_WebAPI.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("FullStackAuth_WebAPI.Models.Car", b =>
+            modelBuilder.Entity("FullStackAuth_WebAPI.Models.Image", b =>
                 {
-                    b.HasOne("FullStackAuth_WebAPI.Models.User", "Owner")
+                    b.HasOne("FullStackAuth_WebAPI.Models.ShotData", "ShotData")
                         .WithMany()
-                        .HasForeignKey("OwnerId");
+                        .HasForeignKey("ShotDataId");
 
-                    b.Navigation("Owner");
+                    b.Navigation("ShotData");
+                });
+
+            modelBuilder.Entity("FullStackAuth_WebAPI.Models.Rifle", b =>
+                {
+                    b.HasOne("FullStackAuth_WebAPI.Models.ShotData", "ShotData")
+                        .WithMany()
+                        .HasForeignKey("ShotDataId");
+
+                    b.HasOne("FullStackAuth_WebAPI.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("ShotData");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("FullStackAuth_WebAPI.Models.ShotData", b =>
+                {
+                    b.HasOne("FullStackAuth_WebAPI.Models.Bullet", "Bullet")
+                        .WithMany()
+                        .HasForeignKey("BulletId");
+
+                    b.HasOne("FullStackAuth_WebAPI.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Bullet");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

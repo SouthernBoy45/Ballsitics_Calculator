@@ -12,6 +12,9 @@ using System.IO;
 using Microsoft.Extensions.Hosting;
 using System;
 using Microsoft.AspNetCore.Hosting;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Google.Protobuf.WellKnownTypes;
 
 namespace FullStackAuth_WebAPI.Controllers
 {
@@ -27,16 +30,18 @@ namespace FullStackAuth_WebAPI.Controllers
             this._hostEnvironment = hostEnvironment;
         }
 
-        [HttpGet]
+        [HttpGet, Authorize]
         public async Task<ActionResult<IEnumerable<Image>>> GetAllImages()
         {
+            string userId = User.FindFirstValue("id");
             // Query the Image table and project the result into a new collection of Image.
             // For each image, the ImageSrc is created by combining the request scheme (http or https),
             // the host, the base path of the request, and the name of the image.
-            return await _context.Image.Select(x => new Image()
+            return await _context.Image.Where(i => i.ShotData.UserId == userId).Select(x => new Image()
             {
                 Id = x.Id,
                 ShotDataId = x.ShotDataId,
+                ShotData = _context.ShotDatas.Where(s => s.Id == x.ShotDataId).FirstOrDefault(),
                 Title = x.Title,
                 Description = x.Description,
                 ImageSrc = String.Format("{0}://{1}{2}/Images/{3}", Request.Scheme, Request.Host, Request.PathBase, x.Title)
@@ -52,6 +57,8 @@ namespace FullStackAuth_WebAPI.Controllers
             // Add the Image object to the Image table in the database and save changes.
             _context.Image.Add(value);
             _context.SaveChanges();
+
+            value.ShotData = _context.ShotDatas.Where(s => s.Id == value.ShotDataId).FirstOrDefault();
 
             // Return a 201 Created status code and the Image object.
             return StatusCode(201, value);

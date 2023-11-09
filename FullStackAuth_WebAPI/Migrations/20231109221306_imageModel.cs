@@ -9,7 +9,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace FullStackAuth_WebAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class imageModel : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -57,6 +57,22 @@ namespace FullStackAuth_WebAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Bullets",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "varchar(255)", nullable: false),
+                    Name = table.Column<string>(type: "longtext", nullable: true),
+                    MuzzleVelocity = table.Column<double>(type: "double", nullable: false),
+                    Caliber = table.Column<double>(type: "double", nullable: false),
+                    Weight = table.Column<double>(type: "double", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bullets", x => x.Id);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -172,23 +188,76 @@ namespace FullStackAuth_WebAPI.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Cars",
+                name: "ShotDatas",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "varchar(255)", nullable: false),
+                    TargetRange = table.Column<int>(type: "int", nullable: false),
+                    ShootingCondition = table.Column<string>(type: "longtext", nullable: true),
+                    Note = table.Column<string>(type: "longtext", nullable: true),
+                    BulletId = table.Column<string>(type: "varchar(255)", nullable: true),
+                    UserId = table.Column<string>(type: "varchar(255)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ShotDatas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ShotDatas_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_ShotDatas_Bullets_BulletId",
+                        column: x => x.BulletId,
+                        principalTable: "Bullets",
+                        principalColumn: "Id");
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Image",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    Make = table.Column<string>(type: "longtext", nullable: false),
-                    Model = table.Column<string>(type: "longtext", nullable: false),
-                    Year = table.Column<int>(type: "int", nullable: false),
-                    OwnerId = table.Column<string>(type: "varchar(255)", nullable: true)
+                    Title = table.Column<string>(type: "longtext", nullable: true),
+                    Description = table.Column<string>(type: "longtext", nullable: true),
+                    ShotDataId = table.Column<string>(type: "varchar(255)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cars", x => x.Id);
+                    table.PrimaryKey("PK_Image", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Cars_AspNetUsers_OwnerId",
-                        column: x => x.OwnerId,
+                        name: "FK_Image_ShotDatas_ShotDataId",
+                        column: x => x.ShotDataId,
+                        principalTable: "ShotDatas",
+                        principalColumn: "Id");
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Rifles",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "varchar(255)", nullable: false),
+                    Name = table.Column<string>(type: "longtext", nullable: true),
+                    ScopeHeight = table.Column<int>(type: "int", nullable: false),
+                    ZeroRange = table.Column<double>(type: "double", nullable: false),
+                    UserId = table.Column<string>(type: "varchar(255)", nullable: true),
+                    ShotDataId = table.Column<string>(type: "varchar(255)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rifles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Rifles_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Rifles_ShotDatas_ShotDataId",
+                        column: x => x.ShotDataId,
+                        principalTable: "ShotDatas",
                         principalColumn: "Id");
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
@@ -198,8 +267,8 @@ namespace FullStackAuth_WebAPI.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "02826bcd-2b15-4c0a-8d85-281ade12b9b9", null, "Admin", "ADMIN" },
-                    { "59de2413-2986-49fa-a7ea-d2ee9bae8830", null, "User", "USER" }
+                    { "744f7189-d685-4a6c-9067-6b9a3972643c", null, "User", "USER" },
+                    { "b108bbae-7f56-47f9-aeb1-738704308202", null, "Admin", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -240,9 +309,29 @@ namespace FullStackAuth_WebAPI.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cars_OwnerId",
-                table: "Cars",
-                column: "OwnerId");
+                name: "IX_Image_ShotDataId",
+                table: "Image",
+                column: "ShotDataId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rifles_ShotDataId",
+                table: "Rifles",
+                column: "ShotDataId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rifles_UserId",
+                table: "Rifles",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShotDatas_BulletId",
+                table: "ShotDatas",
+                column: "BulletId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShotDatas_UserId",
+                table: "ShotDatas",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -264,13 +353,22 @@ namespace FullStackAuth_WebAPI.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Cars");
+                name: "Image");
+
+            migrationBuilder.DropTable(
+                name: "Rifles");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "ShotDatas");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Bullets");
         }
     }
 }

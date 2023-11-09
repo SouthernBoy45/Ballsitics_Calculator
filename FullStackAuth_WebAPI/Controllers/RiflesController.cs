@@ -20,7 +20,7 @@ namespace FullStackAuth_WebAPI.Controllers
             _context = context;
         }
         // GET: api/<RiflesController>
-        [HttpGet]
+        [HttpGet, Authorize]
         public IActionResult GetAllRifles()
         {
             try
