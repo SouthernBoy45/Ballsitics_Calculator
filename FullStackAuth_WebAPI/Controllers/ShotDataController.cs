@@ -23,7 +23,7 @@ namespace FullStackAuth_WebAPI.Controllers
         }
 
         // GET: api/<ShotDataController>
-        [HttpGet ("myShots"), Authorize]
+        [HttpGet, Authorize]
         public IActionResult GetUserShotData()
         {
             try

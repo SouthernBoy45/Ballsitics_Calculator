@@ -5,10 +5,10 @@ namespace FullStackAuth_WebAPI.Models
 {
     public class Rifle
     {
-        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity), Key]
         public string Id { get; set; }
         public string Name { get; set; }
-        public int ScopeHeight { get; set; }
+        public double ScopeHeight { get; set; }
         public double ZeroRange { get; set; }
         [ForeignKey ("User")]
         public string UserId { get; set; }

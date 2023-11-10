@@ -12,8 +12,9 @@ const Navbar = () => {
       <ul>
         <li className="brand">
           <Link to="/" style={{ textDecoration: "none", color: "white" }}>
-            <b>React/ASP.NET JWT Starter</b>
+            <b>Shoot Right</b>
           </Link>
+          <Link to="inputPage"style={{ textDecoration: "none", color: "white", padding: "100px"}}><b>NewTarget</b></Link> 
         </li>
         <li>
           {user ? (
