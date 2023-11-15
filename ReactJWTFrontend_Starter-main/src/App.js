@@ -30,7 +30,7 @@ function App() {
         />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="input" element={<InputPage/>}/>
+        <Route path="/input" element={<InputPage/>}/>
       </Routes>
       <Footer />
     </div>
