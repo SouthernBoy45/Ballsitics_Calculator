@@ -14,7 +14,18 @@ const Navbar = () => {
           <Link to="/" style={{ textDecoration: "none", color: "white" }}>
             <b>Shoot Right</b>
           </Link>
-          <Link to="/input"style={{ textDecoration: "none", color: "white", padding: "100px"}}><b>NewTarget</b></Link> 
+          <Link
+            to="/input"
+            style={{ textDecoration: "none", color: "white", padding: "100px" }}
+          >
+            <b>NewTarget</b>
+          </Link>
+          <Link
+            to="postShot"
+            style={{ textDecoration: "none", color: "white", padding: "100px" }}
+          >
+            Record Your Shot
+          </Link>
         </li>
         <li>
           {user ? (

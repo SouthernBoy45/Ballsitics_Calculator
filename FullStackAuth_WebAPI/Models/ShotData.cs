@@ -14,9 +14,6 @@ namespace FullStackAuth_WebAPI.Models
         public int TargetRange { get; set; }
         public string ShootingCondition { get; set; }
         public string Note { get; set; }
-        [ForeignKey ("Bullet")]
-        public string BulletId { get; set; }
-        public Bullet Bullet { get; set; }
         [ForeignKey ("User")]
         public string UserId { get; set; }
         public User User { get; set; }

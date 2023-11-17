@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CoriolisMath from "../../components/CoriolisMath/CoriolisMath";
 
-const InputPage = () => {
+const InputPage = ({}) => {
   const [muzzleVelocity, setMuzzleVelocity] = useState(0);
   const [targetRange, setTargetRange] = useState(0);
   const [caliber, setCaliber] = useState(0);
@@ -14,6 +14,7 @@ const InputPage = () => {
   const [bulletDrop, setBulletDrop] = useState(0);
   const [windDrift, setWindDrift] = useState(0);
   const [adjustedScopeHeight, setAdjustedScopeHeight] = useState(0);
+  const [includeCoriolis, setIncludeCoriolis] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,8 +41,6 @@ const InputPage = () => {
     setWindDrift(windDriftResult);
     setAdjustedScopeHeight(adjustedScopeHeightResult);
   };
-
-  const coriolisProps = {muzzleVelocity, timeOfFlight, targetRange};
 
   return (
     <div>
@@ -82,6 +81,13 @@ const InputPage = () => {
           onChange={(e) => setWindSpeed(e.target.value)}
         />
         <br />
+        <label>Latitude</label>
+        <input
+          type="number"
+          value={latitude}
+          onChange={(e) => setLatitude(e.target.value)}
+        />
+        <br />
         <label>Projectile Weight (grains):</label>
         <input
           type="number"
@@ -91,7 +97,21 @@ const InputPage = () => {
         <br />
         <div>
           <p>Account for Coriolis Effect?</p>
-          <CoriolisMath coriolisProps={coriolisProps} latitude={latitude} />
+          <div>
+            <input
+              type="checkbox"
+              checked={includeCoriolis}
+              onChange={(e) => setIncludeCoriolis(e.target.checked)}
+            />
+            <label>Include Coriolis</label>
+          </div>
+          <CoriolisMath
+            includeCoriolis={includeCoriolis}
+            latitude={latitude}
+            targetRange={targetRange}
+            muzzleVelocity={muzzleVelocity}
+            timeOfFlight={timeOfFlight}
+          />
         </div>
         <br />
         <button type="submit">Calculate</button>

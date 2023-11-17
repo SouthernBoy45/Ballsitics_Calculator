@@ -36,12 +36,6 @@ namespace FullStackAuth_WebAPI.Controllers
                     TargetRange = s.TargetRange,
                     ShootingCondition = s.ShootingCondition,
                     Note = s.Note,
-                    Bullet = new Bullet
-                    {
-                        Name = s.Bullet.Name,
-                        MuzzleVelocity = s.Bullet.MuzzleVelocity,
-                        Weight = s.Bullet.Weight
-                    }
                 }).ToList();
                 return StatusCode(200, shotData);
             } catch(Exception ex)

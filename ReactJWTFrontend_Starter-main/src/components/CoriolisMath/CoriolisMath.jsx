@@ -3,27 +3,32 @@ import React from "react";
 const CoriolisMath = ({
   latitude,
   targetRange,
-  muzzleVelocity,
   timeOfFlight,
+  muzzleVelocity,
+  includeCoriolis,
 }) => {
-  const coriolisConstant = 0.000293;
-
   const calculateCoriolisEffect = () => {
+    const earthRotationRate = 7.2921159 * Math.pow(10, -5);
+
+    const latitudeRad = latitude * (Math.PI / 180);
+
     const coriolisEffect =
-      coriolisConstant *
-      latitude *
-      Math.sin(
-        (2 * Math.PI * targetRange) / (muzzleVelocity * timeOfFlight)
-      );
+      2 *
+      earthRotationRate *
+      Math.sin(latitudeRad) *
+      (targetRange / muzzleVelocity) *
+      timeOfFlight;
 
     return coriolisEffect;
   };
+
   return (
-        <div>
-            
-          <p>Coriolis Effect: {calculateCoriolisEffect()}</p>
-        </div>
-      );
+    <div>
+      {includeCoriolis ? (
+        <p>Coriolis Effect: {calculateCoriolisEffect().toFixed(5)}</p>
+      ) : null}
+    </div>
+  );
 };
 
 export default CoriolisMath;
