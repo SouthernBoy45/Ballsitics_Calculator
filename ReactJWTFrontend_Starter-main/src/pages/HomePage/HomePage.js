@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 
 import axios from "axios";
+import ImageList from "../../components/ImageList/ImageList";
 
 const HomePage = () => {
   // The "user" value from this Hook contains user information (id, userName, email) from the decoded token
@@ -37,9 +38,9 @@ const HomePage = () => {
             <li>Target Range - {shotData.targetRange} </li>
             <li>Shooting Condition - {shotData.shootingCondition}</li>
             <li>Notes - {shotData.note}</li>
-            <div>{shotData.Image}</div>
           </p>
         ))}
+        <ImageList/>
     </div>
   );
 };
