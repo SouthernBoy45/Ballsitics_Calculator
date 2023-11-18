@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
+import ImageForm from "../../components/ImageForm/ImageForm";
 
 const PostShotPage = ({}) => {
   const [user, token] = useAuth();
@@ -75,6 +76,8 @@ const PostShotPage = ({}) => {
             />
             <button type="submit">Record</button>
         </form>
+        <label>Got a picture?</label>
+            <ImageForm/>
       </div>
     );
 };

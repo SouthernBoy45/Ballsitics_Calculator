@@ -50,6 +50,7 @@ namespace FullStackAuth_WebAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Image>> PostNewImage([FromForm] Image value)
         {
+            string userId = User.FindFirstValue("id");
             // Save the image from the Image object to the Images folder.
             // The SaveImage method returns the name of the image, which is then assigned to the Title property.
             value.Title = await SaveImage(value.ImageFile);
