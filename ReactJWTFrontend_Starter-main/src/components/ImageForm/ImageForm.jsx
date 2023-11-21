@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
+import useAuth from "../../hooks/useAuth";
 
 export default function ImageForm() {
+  
+  const [user, token] = useAuth();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
@@ -19,7 +22,7 @@ export default function ImageForm() {
         formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "multipart/form-data", Authorization: "Bearer " + token,
           },
         }
       );
@@ -41,7 +44,6 @@ export default function ImageForm() {
         value={description}
         onChange={(event) => setDescription(event.target.value)}
       />
-
       <input
         type="file"
         accept="image/jpeg,image/png,image/gif"

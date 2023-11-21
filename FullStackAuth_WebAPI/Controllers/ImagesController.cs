@@ -47,7 +47,7 @@ namespace FullStackAuth_WebAPI.Controllers
                 ImageSrc = String.Format("{0}://{1}{2}/Images/{3}", Request.Scheme, Request.Host, Request.PathBase, x.Title)
             }).ToListAsync();
         }
-        [HttpPost]
+        [HttpPost, Authorize]
         public async Task<ActionResult<Image>> PostNewImage([FromForm] Image value)
         {
             string userId = User.FindFirstValue("id");
