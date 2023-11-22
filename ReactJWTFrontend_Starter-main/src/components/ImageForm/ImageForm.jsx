@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 
-export default function ImageForm() {
+export default function ImageForm(shotData) {
   
   const [user, token] = useAuth();
   const [title, setTitle] = useState("");
@@ -13,12 +13,13 @@ export default function ImageForm() {
     e.preventDefault();
     const formData = new FormData();
 
+    formData.append("shotData", shotData);
     formData.append("title", title);
     formData.append("description", description);
     formData.append("image_url", image);
     try {
       const response = await axios.post(
-        "https://localhost:5001/api/Images",
+        "https://localhost:5001/api/Images", shotData.id,
         formData,
         {
           headers: {
@@ -32,7 +33,7 @@ export default function ImageForm() {
     }
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <div>
       <label>Title:</label>
       <input
         type="text"
@@ -49,7 +50,6 @@ export default function ImageForm() {
         accept="image/jpeg,image/png,image/gif"
         onChange={(e) => setImage(e.target.files[0])}
       />
-      <button type="submit">Submit Photo!</button>
-    </form>
+    </div>
   );
 }

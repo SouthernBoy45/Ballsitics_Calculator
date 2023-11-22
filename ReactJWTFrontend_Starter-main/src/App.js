@@ -29,10 +29,35 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route path="/register" element={<RegisterPage />} />
+
+        <Route
+          path="/register"
+          element={
+            <PrivateRoute>
+              <RegisterPage />
+            </PrivateRoute>
+          }
+        />
+
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/input" element={<InputPage/>}/>
-        <Route path="postShot" element={<PostShotPage/>}/>
+
+        <Route
+          path="/input"
+          element={
+            <PrivateRoute>
+              <InputPage />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="postShot"
+          element={
+            <PrivateRoute>
+              <PostShotPage />
+            </PrivateRoute>
+          }
+        />
       </Routes>
       <Footer />
     </div>

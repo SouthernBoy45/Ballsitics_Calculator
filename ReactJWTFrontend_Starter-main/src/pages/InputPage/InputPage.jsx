@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import CoriolisMath from "../../components/CoriolisMath/CoriolisMath";
+import useAuth from "../../hooks/useAuth";
 
 const InputPage = ({}) => {
   const [muzzleVelocity, setMuzzleVelocity] = useState(0);
