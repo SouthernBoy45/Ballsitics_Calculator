@@ -12,6 +12,7 @@ const PostShotPage = ({}) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
+  const [shotDataId, setShotDataId] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -38,6 +39,7 @@ const PostShotPage = ({}) => {
         }
       );
       if (response.status === 201) {
+        setShotDataId(response.shotData.id)
         if (image) {
           handleImage()
         }
@@ -54,18 +56,18 @@ const PostShotPage = ({}) => {
   const handleImage = async () => {
     const formData = new FormData();
 
-    formData.append("shotData", shotData);
+    formData.append("shotDataId", shotDataId);
     formData.append("title", title);
     formData.append("description", description);
     formData.append("image_url", image);
     try {
       const response = await axios.post(
-        "https://localhost:5001/api/Images", shotData.id,
+        "https://localhost:5001/api/Images", shotDataId,
         formData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data", Authorization: "Bearer " + token,
+            "Content-Type": "multipart/form-data",
           },
         }
       );
@@ -114,7 +116,7 @@ const PostShotPage = ({}) => {
         value={description}
         onChange={(event) => setDescription(event.target.value)}
       />
-      <input
+      <input 
         type="file"
         accept="image/jpeg,image/png,image/gif"
         onChange={(e) => setImage(e.target.files[0])}

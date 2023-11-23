@@ -19,7 +19,7 @@ export default function ImageForm(shotData) {
     formData.append("image_url", image);
     try {
       const response = await axios.post(
-        "https://localhost:5001/api/Images", shotData.id,
+        "https://localhost:5001/api/Images",
         formData,
         {
           headers: {
