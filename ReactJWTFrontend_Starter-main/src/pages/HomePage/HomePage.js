@@ -13,7 +13,7 @@ const HomePage = () => {
 
   useEffect(() => {
     getAllShotData();
-  }, [token]);
+  }, []);
 
   const getAllShotData = async () => {
     try {
@@ -40,7 +40,7 @@ const HomePage = () => {
             <li>Notes - {shotData.note}</li>
           </p>
         ))}
-        <ImageList/>
+        <ImageList shotData={shotData}/>
     </div>
   );
 };

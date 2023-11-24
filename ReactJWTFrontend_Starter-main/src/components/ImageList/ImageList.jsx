@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 
-export default function ImageList() {
+export default function ImageList(shotData) {
   const [user, token] = useAuth();
   const [images, setImages] = useState([]);
 
@@ -28,10 +28,9 @@ export default function ImageList() {
   return (
     <div>
       {images.map((image) => (
-        <div>
+        <div key={shotData.id}>
           <img src={image.imageSrc} alt={image.title} width="250" />
-          <div>
-            <h2>{image.title}</h2>
+          <div >
             <p>{image.description}</p>
           </div>
         </div>

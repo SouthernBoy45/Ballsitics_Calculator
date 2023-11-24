@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 
-const PostShotPage = ({}) => {
+const PostShotPage = () => {
   const [user, token] = useAuth();
   const [shotData, setShotData] = useState({
     targetRange: 0,
@@ -39,7 +39,7 @@ const PostShotPage = ({}) => {
         }
       );
       if (response.status === 201) {
-        setShotDataId(response.shotData.id)
+        setShotDataId(response.data.id)
         if (image) {
           handleImage()
         }
@@ -50,27 +50,34 @@ const PostShotPage = ({}) => {
       }
     } catch (error) {
       alert("Error recoring shot information");
-      console.log(error.response);
+      console.log(error);
     }
   };
   const handleImage = async () => {
     const formData = new FormData();
 
-    formData.append("shotDataId", shotDataId);
-    formData.append("title", title);
-    formData.append("description", description);
+    formData.append("ShotDataId", shotData.id);
+    formData.append("Title", title);
+    formData.append("Description", description);
     formData.append("image_url", image);
     try {
       const response = await axios.post(
-        "https://localhost:5001/api/Images", shotDataId,
+        "https://localhost:5001/api/Images",
         formData,
         {
           headers: {
+            ShotDataId: shotDataId,
+            Title: title,
+            Description: description,
+            imageFile: image,
             Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
           },
         }
       );
+      if (response.status === 201){
+        setTitle("")} {setDescription("")} {setImage(null)
+      };
       console.log(response.data);
     } catch (er) {
       console.log(er.response.data);
