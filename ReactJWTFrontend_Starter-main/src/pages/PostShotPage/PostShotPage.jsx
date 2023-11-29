@@ -12,7 +12,6 @@ const PostShotPage = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
-  const [shotDataId, setShotDataId] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -39,9 +38,9 @@ const PostShotPage = () => {
         }
       );
       if (response.status === 201) {
-        setShotDataId(response.data.id)
+        // setShotDataId(response.data.id)
         if (image) {
-          handleImage()
+          handleImage(response.data.id)
         }
         alert("Shot Information Recorded!!");
         setShotData({ targetRange: 0, shootingCondition: "", note: "" });
@@ -53,23 +52,19 @@ const PostShotPage = () => {
       console.log(error);
     }
   };
-  const handleImage = async () => {
+  const handleImage = async (shotDataId) => {
     const formData = new FormData();
 
-    formData.append("ShotDataId", shotData.id);
+    formData.append("ShotDataId", shotDataId);
     formData.append("Title", title);
     formData.append("Description", description);
-    formData.append("image_url", image);
+    formData.append("imageFile", image);
     try {
       const response = await axios.post(
         "https://localhost:5001/api/Images",
         formData,
         {
           headers: {
-            ShotDataId: shotDataId,
-            Title: title,
-            Description: description,
-            imageFile: image,
             Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
           },

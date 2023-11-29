@@ -7,6 +7,7 @@ import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import InputPage from "./pages/InputPage/InputPage";
+import WeatherPage from "./pages/WeatherPage/WeatherPage";
 
 // Component Imports
 import Navbar from "./components/NavBar/NavBar";
@@ -51,10 +52,18 @@ function App() {
         />
 
         <Route
-          path="postShot"
+          path="/postShot"
           element={
             <PrivateRoute>
               <PostShotPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/weather"
+          element={
+            <PrivateRoute>
+              <WeatherPage />
             </PrivateRoute>
           }
         />
