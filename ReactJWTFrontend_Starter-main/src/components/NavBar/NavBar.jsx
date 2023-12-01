@@ -11,21 +11,26 @@ const Navbar = () => {
     <div className="navBar">
       <ul>
         <li className="brand">
-          <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+          <Link to="/" style={{ textDecoration: "none", color: "white", padding: "50px" }}>
             <b>Shoot Right</b>
           </Link>
           <Link
             to="/input"
-            style={{ textDecoration: "none", color: "white", padding: "100px" }}
+            style={{ textDecoration: "none", color: "white", padding: "50px" }}
           >
             <b>NewTarget</b>
           </Link>
           <Link
-            to="postShot"
-            style={{ textDecoration: "none", color: "white", padding: "100px" }}
+            to="/postShot"
+            style={{ textDecoration: "none", color: "white", padding: "50px" }}
           >
             Record Your Shot
           </Link>
+          <Link
+            to="/weather"
+            style={{ textDecoration: "none", color: "white", padding: "50px" }}>
+              Weather Conditions
+            </Link>
         </li>
         <li>
           {user ? (
