@@ -8,6 +8,12 @@
   box-sizing: inherit;
 }
 
+body{
+  background-image: url('./george-pagan-iii-bIlaTxx4nCo-unsplash.jpg'); 
+  background-size: cover; 
+  background-position: center;
+}
+
 html {
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;

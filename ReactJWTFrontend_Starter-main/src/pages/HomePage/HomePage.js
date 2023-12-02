@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-
+import "./HomePage.css";
 import axios from "axios";
 import ImageList from "../../components/ImageList/ImageList";
 
@@ -34,7 +34,7 @@ const HomePage = () => {
       <h1>Home Page for {user.userName}!</h1>
       {shotData &&
         shotData.map((shotData) => (
-          <p key={shotData.id}>
+          <p key={shotData.id} className="text-container">
             <li>Target Range - {shotData.targetRange} </li>
             <li>Shooting Condition - {shotData.shootingCondition}</li>
             <li>Notes - {shotData.note}</li>

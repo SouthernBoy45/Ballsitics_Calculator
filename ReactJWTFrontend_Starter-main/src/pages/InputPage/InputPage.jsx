@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import CoriolisMath from "../../components/CoriolisMath/CoriolisMath";
 import useAuth from "../../hooks/useAuth";
+import AmmoList from "../../components/AmmoList/AmmoList";
 
 const InputPage = ({}) => {
   const [muzzleVelocity, setMuzzleVelocity] = useState(0);
@@ -44,9 +45,9 @@ const InputPage = ({}) => {
   };
 
   return (
-    <div>
+    <div className="container">
       <h1>Enter Shooting Parameters</h1>
-      <form onSubmit={handleSubmit}>
+      <form className="form" onSubmit={handleSubmit}>
         <label>Muzzle Velocity (fps):</label>
         <input
           type="number"
@@ -82,7 +83,7 @@ const InputPage = ({}) => {
           onChange={(e) => setWindSpeed(e.target.value)}
         />
         <br />
-        <label>Latitude</label>
+        <label>Latitude (Only if using Coriolis Effect)</label>
         <input
           type="number"
           value={latitude}
@@ -122,6 +123,9 @@ const InputPage = ({}) => {
         <p>Time of Flight: {timeOfFlight.toFixed(3)} s</p>
         <p>Bullet Drop: {bulletDrop.toFixed(3)} cm</p>
         <p>Wind Drift: {windDrift.toFixed(3)} m</p>
+      </div>
+      <div>
+        <AmmoList/>
       </div>
     </div>
   );

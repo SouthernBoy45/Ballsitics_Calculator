@@ -27,10 +27,11 @@ const WeatherPage = () => {
     }
   }
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className="container">
+      <form className="form" onSubmit={handleSubmit}>
         <label>Enter your Zip Code</label>
         <input
+        style={{margin: "20px"}}
           type="number"
           name="zipCode"
           min="1"
@@ -38,17 +39,21 @@ const WeatherPage = () => {
           value={zipCode}
           onChange={(event) => setZipCode(event.target.value)}
         />
+        <button type="submit" style={{margin: "20px"}} >Get Weather</button>
       </form>
       {weatherDetails && (
         <div>
-          <h2>Local Weather</h2>
-          <h3>
-            Location: {weatherDetails.name} <b /> Temperature:{" "}
-            {weatherDetails.main.temp} <b /> Atmospheric Pressure:{" "}
-            {weatherDetails.main.pressure} <b/> Humidity: {weatherDetails.main.humidity} <b/>
-            Wind Speed: {weatherDetails.wind.speed}<b/> Wind Degree: {weatherDetails.wind.deg}
-            Latitude: {weatherDetails.coord.lat} <b/> Longitude: {weatherDetails.coord.lon}
-          </h3>
+          <h2>Local Weather</h2> <br/>
+          <h3>Location: {weatherDetails.name}</h3> <br />
+          <p>
+            Temperature: {weatherDetails.main.temp} <br /> Atmospheric Pressure:{" "}
+            {weatherDetails.main.pressure} <br /> Humidity:{" "}
+            {weatherDetails.main.humidity} <br />
+            Wind Speed: {weatherDetails.wind.speed}
+            <br /> Wind Degree: {weatherDetails.wind.deg} <br/>
+            Latitude: {weatherDetails.coord.lat} <br /> Longitude:{" "}
+            {weatherDetails.coord.lon}
+          </p>
         </div>
       )}
     </div>

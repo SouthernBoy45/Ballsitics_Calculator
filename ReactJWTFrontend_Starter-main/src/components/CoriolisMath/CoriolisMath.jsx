@@ -25,7 +25,7 @@ const CoriolisMath = ({
   return (
     <div>
       {includeCoriolis ? (
-        <p>Coriolis Effect: {calculateCoriolisEffect().toFixed(5)}</p>
+        <p>Coriolis Effect: {calculateCoriolisEffect().toFixed(5)} m</p>
       ) : null}
     </div>
   );

@@ -15,6 +15,11 @@ const Navbar = () => {
             <b>Shoot Right</b>
           </Link>
           <Link
+            to="/weather"
+            style={{ textDecoration: "none", color: "white", padding: "50px" }}>
+              Weather Conditions
+            </Link>
+          <Link
             to="/input"
             style={{ textDecoration: "none", color: "white", padding: "50px" }}
           >
@@ -26,11 +31,6 @@ const Navbar = () => {
           >
             Record Your Shot
           </Link>
-          <Link
-            to="/weather"
-            style={{ textDecoration: "none", color: "white", padding: "50px" }}>
-              Weather Conditions
-            </Link>
         </li>
         <li>
           {user ? (

@@ -79,10 +79,10 @@ const PostShotPage = () => {
     }
   };
   return (
-    <div>
+    <div className="container">
       <h1>Record Your Shot</h1>
-      <form onSubmit={handleSubmit}>
-        <label>What was your target's range?</label>
+      <form className="form" onSubmit={handleSubmit}>
+        <h3>What was your target's range?</h3>
         <input
           type="number"
           name="targetRange"
@@ -92,21 +92,21 @@ const PostShotPage = () => {
           max="999999"
           onChange={handleInputChange}
         />
-        <label>What were your shooting conditions?</label>
+        <h3>What were your shooting conditions?</h3>
         <textarea
           value={shotData.shootingCondition}
           name="shootingCondition"
           rows="2"
           onChange={handleInputChange}
         />
-        <label>Any additional notes?</label>
+        <h3>Any additional notes?</h3>
         <textarea
           value={shotData.note}
           name="note"
           rows="4"
           onChange={handleInputChange}
         />
-        <label>Got a picture?</label>
+        <h2>Got a picture?</h2>
         <label>Title:</label>
       <input
         type="text"
@@ -119,11 +119,12 @@ const PostShotPage = () => {
         onChange={(event) => setDescription(event.target.value)}
       />
       <input 
+        style={{margin: "10px"}}
         type="file"
         accept="image/jpeg,image/png,image/gif"
         onChange={(e) => setImage(e.target.files[0])}
       />
-        <button type="submit">Record!</button>
+        <button style={{margin: "10px"}} type="submit">Record!</button>
       </form>
     </div>
   );
