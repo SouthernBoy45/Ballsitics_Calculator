@@ -28,7 +28,7 @@ export default function ImageList(shotData) {
   return (
     <div>
       {images.map((image) => (
-        <div key={shotData.id}>
+        <div key={shotData.id} className="text-container">
           <img src={image.imageSrc} alt={image.title} width="250" />
           <div >
             <p>{image.description}</p>

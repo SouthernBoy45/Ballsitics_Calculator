@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import HomePage from "../HomePage/HomePage";
 
 const WeatherPage = () => {
   const [weatherDetails, setWeatherDetails] = useState();
@@ -29,7 +30,7 @@ const WeatherPage = () => {
   return (
     <div className="container">
       <form className="form" onSubmit={handleSubmit}>
-        <label>Enter your Zip Code</label>
+        <label className="text-container"><b>Enter your Zip Code</b></label>
         <input
         style={{margin: "20px"}}
           type="number"
@@ -42,7 +43,7 @@ const WeatherPage = () => {
         <button type="submit" style={{margin: "20px"}} >Get Weather</button>
       </form>
       {weatherDetails && (
-        <div>
+        <div className="text-container">
           <h2>Local Weather</h2> <br/>
           <h3>Location: {weatherDetails.name}</h3> <br />
           <p>

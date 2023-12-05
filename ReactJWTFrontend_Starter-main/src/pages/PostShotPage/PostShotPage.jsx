@@ -82,7 +82,7 @@ const PostShotPage = () => {
     <div className="container">
       <h1>Record Your Shot</h1>
       <form className="form" onSubmit={handleSubmit}>
-        <h3>What was your target's range?</h3>
+        <h3 className="text-container">What was your target's range?</h3>
         <input
           type="number"
           name="targetRange"
@@ -92,28 +92,30 @@ const PostShotPage = () => {
           max="999999"
           onChange={handleInputChange}
         />
-        <h3>What were your shooting conditions?</h3>
+        <h3 className="text-container">What were your shooting conditions?</h3>
         <textarea
           value={shotData.shootingCondition}
           name="shootingCondition"
           rows="2"
+          style={{width:"100%"}}
           onChange={handleInputChange}
         />
-        <h3>Any additional notes?</h3>
+        <h3 className="text-container">Any additional notes?</h3>
         <textarea
           value={shotData.note}
           name="note"
           rows="4"
+          style={{width:"100%"}}
           onChange={handleInputChange}
         />
-        <h2>Got a picture?</h2>
+        <h2 className="text-container">Got a picture?</h2>
         <label>Title:</label>
       <input
         type="text"
         value={title}
         onChange={(event) => setTitle(event.target.value)}
       />
-      <label>Description:</label>
+      <label className="text-container">Description:</label>
       <input
         value={description}
         onChange={(event) => setDescription(event.target.value)}

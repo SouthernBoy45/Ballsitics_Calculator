@@ -11,25 +11,35 @@ const Navbar = () => {
     <div className="navBar">
       <ul>
         <li className="brand">
-          <Link to="/" style={{ textDecoration: "none", color: "white", padding: "50px" }}>
+          <Link
+            to="/"
+            style={{ textDecoration: "none", color: "white", padding: "50px" }}
+          >
             <b>Shoot Right</b>
           </Link>
+        </li>
+        <li className="brand">
           <Link
             to="/weather"
-            style={{ textDecoration: "none", color: "white", padding: "50px" }}>
-              Weather Conditions
-            </Link>
+            style={{ textDecoration: "none", color: "white", padding: "50px" }}
+          >
+            <button>Weather Conditions</button>
+          </Link>
+        </li>
+        <li className="brand">
           <Link
             to="/input"
             style={{ textDecoration: "none", color: "white", padding: "50px" }}
           >
-            <b>NewTarget</b>
+            <button>NewTarget</button>
           </Link>
+        </li>
+        <li className="brand">
           <Link
             to="/postShot"
             style={{ textDecoration: "none", color: "white", padding: "50px" }}
           >
-            Record Your Shot
+            <button>Record Your Shot</button>
           </Link>
         </li>
         <li>

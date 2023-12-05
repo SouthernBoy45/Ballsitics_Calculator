@@ -1,7 +1,10 @@
 ul {
   display: flex;
-  justify-content: space-between;
   list-style-type: none;
+  align-content: space-around;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  align-items: center;
 }
 
 li {
@@ -9,27 +12,31 @@ li {
 }
 
 .navBar {
-  background: steelblue;
+  background: rgb(5, 5, 5);
   box-shadow: 4px 2px 5px gray;
   color: white;
   margin-bottom: 2rem;
-  padding: 1.5rem 2rem;
+  padding: 25px;
+  display: flex;
 }
 
 .navBar button {
   background: transparent;
   border: 2px solid white;
   color: white;
-  padding: 0.4rem 0.5rem;
+  padding: 10px;
+  size: 25px;
+  margin: 20px;
 }
 
 .navBar button:hover {
   background: white;
-  color: steelblue;
+  color: rgb(3, 4, 4);
   cursor: pointer;
 }
 
 .brand {
   cursor: pointer;
   font-size: 2rem;
+  size: 25px;
 }

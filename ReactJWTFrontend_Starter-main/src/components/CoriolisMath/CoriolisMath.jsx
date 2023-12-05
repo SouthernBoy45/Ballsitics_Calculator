@@ -1,4 +1,5 @@
 import React from "react";
+import "./CoriolisMath.css";
 
 const CoriolisMath = ({
   latitude,
@@ -25,7 +26,7 @@ const CoriolisMath = ({
   return (
     <div>
       {includeCoriolis ? (
-        <p>Coriolis Effect: {calculateCoriolisEffect().toFixed(5)} m</p>
+        <p className="coriolis">Coriolis Effect: {calculateCoriolisEffect().toFixed(5)} m</p>
       ) : null}
     </div>
   );

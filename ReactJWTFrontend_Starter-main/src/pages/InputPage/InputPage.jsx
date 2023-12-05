@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import CoriolisMath from "../../components/CoriolisMath/CoriolisMath";
-import useAuth from "../../hooks/useAuth";
 import AmmoList from "../../components/AmmoList/AmmoList";
 
 const InputPage = ({}) => {
@@ -37,10 +36,11 @@ const InputPage = ({}) => {
     const bulletDropCentimeters = bulletDropResult * 100;
     const windDriftResult = convertedWindSpeed * (timeOfFlightResult / 1000);
     const adjustedScopeHeightResult = convertedScopeHeight;
+    const windDriftCentimeters = windDriftResult * 100;
 
     setTimeOfFlight(timeOfFlightResult);
     setBulletDrop(bulletDropCentimeters);
-    setWindDrift(windDriftResult);
+    setWindDrift(windDriftCentimeters);
     setAdjustedScopeHeight(adjustedScopeHeightResult);
   };
 
@@ -48,49 +48,51 @@ const InputPage = ({}) => {
     <div className="container">
       <h1>Enter Shooting Parameters</h1>
       <form className="form" onSubmit={handleSubmit}>
-        <label>Muzzle Velocity (fps):</label>
+        <label className="text-container">Muzzle Velocity (fps):</label>
         <input
           type="number"
           value={muzzleVelocity}
           onChange={(e) => setMuzzleVelocity(e.target.value)}
         />
         <br />
-        <label>Target Range (m):</label>
+        <label className="text-container">Target Range (m):</label>
         <input
           type="number"
           value={targetRange}
           onChange={(e) => setTargetRange(e.target.value)}
         />
         <br />
-        <label>Caliber (mm):</label>
+        <label className="text-container">Caliber (mm):</label>
         <input
           type="number"
           value={caliber}
           onChange={(e) => setCaliber(e.target.value)}
         />
         <br />
-        <label>Scope Height (cm):</label>
+        <label className="text-container">Scope Height (cm):</label>
         <input
           type="number"
           value={scopeHeight}
           onChange={(e) => setScopeHeight(e.target.value)}
         />
         <br />
-        <label>Wind Speed (m/s):</label>
+        <label className="text-container">Wind Speed (m/s):</label>
         <input
           type="number"
           value={windSpeed}
           onChange={(e) => setWindSpeed(e.target.value)}
         />
         <br />
-        <label>Latitude (Only if using Coriolis Effect)</label>
+        <label className="text-container">
+          Latitude (Only if using Coriolis Effect)
+        </label>
         <input
           type="number"
           value={latitude}
           onChange={(e) => setLatitude(e.target.value)}
         />
         <br />
-        <label>Projectile Weight (grains):</label>
+        <label className="text-container">Projectile Weight (grains):</label>
         <input
           type="number"
           value={projectileWeight}
@@ -98,16 +100,17 @@ const InputPage = ({}) => {
         />
         <br />
         <div>
-          <p>Account for Coriolis Effect?</p>
-          <div>
+          <p className="text-container">Account for Coriolis Effect?</p>
+          <div className="text-container">
+            <label>Include Coriolis</label>
             <input
               type="checkbox"
               checked={includeCoriolis}
               onChange={(e) => setIncludeCoriolis(e.target.checked)}
             />
-            <label>Include Coriolis</label>
           </div>
           <CoriolisMath
+            className="text-container"
             includeCoriolis={includeCoriolis}
             latitude={latitude}
             targetRange={targetRange}
@@ -118,14 +121,14 @@ const InputPage = ({}) => {
         <br />
         <button type="submit">Calculate</button>
       </form>
-      <div>
+      <div className="text-container">
         <h2>Calculated Results</h2>
         <p>Time of Flight: {timeOfFlight.toFixed(3)} s</p>
         <p>Bullet Drop: {bulletDrop.toFixed(3)} cm</p>
-        <p>Wind Drift: {windDrift.toFixed(3)} m</p>
+        <p>Wind Drift: {windDrift.toFixed(3)} cm</p>
       </div>
-      <div>
-        <AmmoList/>
+      <div className="text-container">
+        <AmmoList />
       </div>
     </div>
   );
