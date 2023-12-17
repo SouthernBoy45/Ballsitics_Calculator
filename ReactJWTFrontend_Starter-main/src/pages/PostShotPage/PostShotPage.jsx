@@ -109,7 +109,7 @@ const PostShotPage = () => {
           onChange={handleInputChange}
         />
         <h2 className="text-container">Got a picture?</h2>
-        <label>Title:</label>
+        <label className="text-container">Title:</label>
       <input
         type="text"
         value={title}
